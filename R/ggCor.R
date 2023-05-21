@@ -46,6 +46,7 @@ gg_cor <- function(data,
                    colours = c("#db4437", "white", "#4285f4"),
                    blackLabs = c(-0.7, 0.7),
                    showSignif = TRUE,
+                   method = c("pearson", "spearman", "kendall"),
                    pBreaks = c(0, .001, .01, .05, Inf),
                    pLabels = c("***", "**", "*", "ns"),
                    showDiagonal = FALSE,
@@ -63,7 +64,8 @@ gg_cor <- function(data,
     data <- data[, sapply(data, is.numeric)]
   }
   # Calculate corr-coeffs and p values
-  cors <- psych::corr.test(data, use = "pairwise.complete.obs")
+  cors <- psych::corr.test(data, use = "pairwise.complete.obs",
+                           method = method)
   # Use the adjusted p values for multiple testing instead of raw coeffs
   if (adjusted) cors$p <- t(cors$p)
   # Keep only the matrices with correlation coefficients, p values and N shared
