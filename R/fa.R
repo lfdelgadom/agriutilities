@@ -36,7 +36,7 @@ covcor_heat <- function(matrix,
 
   # Get upper triangle of the correlation matrix
   get_upper_tri <- function(cormat) {
-    cormat[lower.tri(cormat)] <- NA
+    cormat[upper.tri(cormat)] <- NA
     return(cormat)
   }
 
